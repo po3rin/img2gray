@@ -5,7 +5,7 @@ Package img2gray lets you generate gray images.
 ## Installation
 
 ```bash
-$ go get github.com/po3rin/img2gray/cmd/gogray
+$ go get -u github.com/po3rin/img2gray/cmd/img2gray
 ```
 
 If you do not install go, binary file is here!
