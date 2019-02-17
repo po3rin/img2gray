@@ -3,15 +3,14 @@ package img2gray
 import (
 	"fmt"
 	"io/ioutil"
-	"log"
 	"path/filepath"
 )
 
 // TraverseGray traverse files to generate gray images.
-func TraverseGray(path string) {
+func TraverseGray(path string) error {
 	files, err := ioutil.ReadDir(path)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	for _, file := range files {
 		if isHiddenDirectoryOrFile(file) {
@@ -24,8 +23,12 @@ func TraverseGray(path string) {
 			continue
 		}
 		if isImage(filePath) {
-			fmt.Printf("detect image file %v\n", filePath)
-			ToGray(filePath, output)
+			err := ToGray(filePath, output)
+			if err != nil {
+				return err
+			}
+			fmt.Printf("generate grayscale image file in %v\n", output)
 		}
 	}
+	return nil
 }

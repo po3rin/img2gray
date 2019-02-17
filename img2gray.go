@@ -4,20 +4,36 @@ import (
 	"image"
 	_ "image/jpeg"
 	"image/png"
-	"log"
 	"os"
+	"strings"
 )
 
+// IsHiddenDirectoryOrFile check hidden directory or file.
+func isHiddenDirectoryOrFile(f os.FileInfo) bool {
+	return strings.HasPrefix(f.Name(), ".")
+}
+
+// IsImage check file is image.
+func isImage(path string) bool {
+	f, _ := os.Open(path)
+	defer f.Close()
+	_, _, err := image.DecodeConfig(f)
+	if err != nil {
+		return false
+	}
+	return true
+}
+
 // ToGray generate gray image.
-func ToGray(input, output string) {
+func ToGray(input, output string) error {
 	f, err := os.Open(input)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	defer f.Close()
 	img, _, err := image.Decode(f)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 
 	// Convert image to grayscale
@@ -29,11 +45,12 @@ func ToGray(input, output string) {
 	}
 	o, err := os.Create(output)
 	if err != nil {
-		log.Fatal(err)
+		return err
 	}
 	defer f.Close()
 
 	if err := png.Encode(o, grayImg); err != nil {
-		log.Fatal(err)
+		return err
 	}
+	return nil
 }

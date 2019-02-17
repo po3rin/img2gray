@@ -1,0 +1,13 @@
+builds:
+  - main: cmd/gogray/main.go
+    binary: gogray
+    goos:
+      - windows
+      - darwin
+      - linux
+    goarch:
+      - amd64
+release:
+  github:
+    owner: po3rin
+    name: gogray

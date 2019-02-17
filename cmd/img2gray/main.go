@@ -18,9 +18,15 @@ func main() {
 		if *imgPath == "" {
 			log.Fatal("i flag is required")
 		}
-		img2gray.ToGray(*imgPath, *output)
+		err := img2gray.ToGray(*imgPath, *output)
+		if err != nil {
+			log.Fatal(err)
+		}
 		return
 	}
-	img2gray.TraverseGray(*imgPath)
+	err := img2gray.TraverseGray(*imgPath)
+	if err != nil {
+		log.Fatal(err)
+	}
 	fmt.Println("Done!")
 }
