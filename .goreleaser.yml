@@ -1,6 +1,6 @@
 builds:
-  - main: cmd/gogray/main.go
-    binary: gogray
+  - main: cmd/img2gray/main.go
+    binary: img2gray
     goos:
       - windows
       - darwin
@@ -10,4 +10,4 @@ builds:
 release:
   github:
     owner: po3rin
-    name: gogray
+    name: img2gray
